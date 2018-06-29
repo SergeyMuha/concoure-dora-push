@@ -20,9 +20,8 @@ jobs:
       - name: files
       run:
         dir: files
-        path: ls
+        path: untar.sh
         args: ['-ltr'] 
-        #dir: arch
         #path: untar.sh
 #        args: [dora-droplet.tar.gz]
 #        args: [-zxvf dora-droplet.tar.gz]
