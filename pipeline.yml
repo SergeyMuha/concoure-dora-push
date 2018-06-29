@@ -1,35 +1,27 @@
 ---
-resource_types:
-- name: file-url
-  type: docker-image
-  source:
-    repository: pivotalservices/concourse-curl-resource
-    tag: latest
-
 resources:
-- name: arch
-  type: file-url
+- name: files
+  type: git
   source:
-    url: https://s3.eu-west-2.amazonaws.com/sergeymuha/dora/dora-droplet.tar.gz
-    filename: dora-droplet.tar.gz
+    uri: https://github.com/SergeyMuha/concoure-dora-push.git
 
 jobs:
-- name: job-list-arch
+- name: job-first
   public: true
   plan:
-  - get: arch
-  - task: untar
+  - get: files
+  - task: first
     config:
       platform: linux
       image_resource:
         type: docker-image
         source: {repository: ubuntu}
       inputs:
-      #- name: arch 
-      - name: workspace
-      
+      - name: files
       run:
+        dir: files
         path: ls
+        args: ['-ltr'] 
         #dir: arch
         #path: untar.sh
 #        args: [dora-droplet.tar.gz]
