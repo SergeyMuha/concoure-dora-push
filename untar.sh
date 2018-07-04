@@ -9,6 +9,7 @@ cat <<EOF > ../output/app/manifest.yml
 ---
 applications:
 - name: my-app
+  buildpack: ruby_buildpack
   memory: 512M
   instances: 1
 EOF
