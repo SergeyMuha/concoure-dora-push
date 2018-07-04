@@ -1,15 +1,25 @@
 ---
 resources:
-- name: files
+- name: input
   type: git
   source:
     uri: https://github.com/SergeyMuha/concoure-dora-push.git
+
+#- name: resource-deploy-web-app
+#  type: cf
+#  source:
+#    api: https://api.rudkovskiy.xyz
+#    username: admin
+#    password: cfv1u0gx4yslbtuf3ycn
+#    organization: system
+#    space: TEST
+#    skip_cert_check: true
 
 jobs:
 - name: job-first
   public: true
   plan:
-  - get: files
+  - get: input
   - task: first
     config:
       platform: linux
@@ -17,11 +27,27 @@ jobs:
         type: docker-image
         source: {repository: ubuntu}
       inputs:
-      - name: files
+      - name: input
       run:
-        dir: files
-        path: untar.sh
-        args: ['-ltr'] 
-        #path: untar.sh
-#        args: [dora-droplet.tar.gz]
-#        args: [-zxvf dora-droplet.tar.gz]
+        dir: input
+        path: ./untar.sh
+      outputs:
+      - name: output
+  - task: second
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      inputs:
+      - name: output
+      run:
+#        dir: files
+        path: ls
+        args: [-laR]
+
+#  - put: resource-deploy-web-app
+#    params:
+#      path: build
+#      manifest: build/staging_info.yml
+
