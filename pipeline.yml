@@ -21,19 +21,21 @@ jobs:
   public: true
   plan:
   - get: input
-  - task: first
-    config:
-      platform: linux
-      image_resource:
-        type: docker-image
-        source: {repository: ubuntu}
-      inputs:
-      - name: input
-      run:
-        dir: input
-        path: ./untar.sh
-      outputs:
-      - name: output
+#  - task: first
+#    config:
+#      platform: linux
+#      image_resource:
+#        type: docker-image
+#        source: {repository: ubuntu}
+#      inputs:
+#      - name: input
+#      run:
+#        dir: input
+#        path: ls
+#        args: ['* ../output/']
+#        path: ./untar.sh
+#      outputs:
+#      - name: output
 #  - task: second
 #    config:
 #      platform: linux
@@ -49,7 +51,7 @@ jobs:
 
   - put: resource-deploy-web-app
     params:
-#      path: 
+      path: input/02-pydata-spyre-app/
       #manifest: output/staging_info.yml
-      manifest: output/01-simple-python-app/manifest.yml
+      manifest: input/02-pydata-spyre-app/manifest.yml
 #      current_app_name: dora
