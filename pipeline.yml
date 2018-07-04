@@ -52,6 +52,6 @@ jobs:
   - put: resource-deploy-web-app
     params:
 #      path: input/02-pydata-spyre-app/
-      manifest: output/staging_info.yml
+      manifest: output/app/manifest.yml
 #      manifest: input/02-pydata-spyre-app/manifest.yml
-      current_app_name: doranew
+#      current_app_name: doranew
