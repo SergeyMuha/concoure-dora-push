@@ -2,7 +2,7 @@
 ls -la ..
 ls -ltr
 pwd
-tar -zxvf dora-droplet.tar.gz
+tar -zxvf dora-droplet-new.tar.gz
 
 cp -a app/* ../output/
 cp -a * ../output/

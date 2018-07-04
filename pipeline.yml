@@ -3,8 +3,8 @@ resources:
 - name: input
   type: git
   source:
-#    uri: https://github.com/SergeyMuha/concoure-dora-push.git
-    uri: https://github.com/ihuston/python-cf-examples.git
+    uri: https://github.com/SergeyMuha/concoure-dora-push.git
+#    uri: https://github.com/ihuston/python-cf-examples.git
 
 - name: resource-deploy-web-app
   type: cf
@@ -21,21 +21,21 @@ jobs:
   public: true
   plan:
   - get: input
-#  - task: first
-#    config:
-#      platform: linux
-#      image_resource:
-#        type: docker-image
-#        source: {repository: ubuntu}
-#      inputs:
-#      - name: input
-#      run:
-#        dir: input
-#        path: ls
-#        args: ['* ../output/']
-#        path: ./untar.sh
-#      outputs:
-#      - name: output
+  - task: first
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      inputs:
+      - name: input
+      run:
+        dir: input
+        path: ls
+        args: ['* ../output/']
+        path: ./untar.sh
+      outputs:
+      - name: output
 #  - task: second
 #    config:
 #      platform: linux
@@ -51,7 +51,7 @@ jobs:
 
   - put: resource-deploy-web-app
     params:
-      path: input/02-pydata-spyre-app/
-      #manifest: output/staging_info.yml
-      manifest: input/02-pydata-spyre-app/manifest.yml
+#      path: input/02-pydata-spyre-app/
+      manifest: output/staging_info.yml
+#      manifest: input/02-pydata-spyre-app/manifest.yml
 #      current_app_name: dora
