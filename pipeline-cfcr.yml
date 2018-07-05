@@ -1,0 +1,41 @@
+---
+resource_types:
+- name: kubernetes
+  type: docker-image
+  source:
+    repository: zlabjp/kubernetes-resource
+    tag: "1.9"
+
+resources:
+- name: kubernetes-production
+  type: kubernetes
+  source:
+    server: https://tcp.gcp.sergeymuha.altoros.com:1024
+    namespace: default
+    token: 9RJsvdRr9t2XCOJMOvObVWsYT7Vb5Z
+    insecure_skip_tls_verify: true
+
+jobs:
+- name: kubernetes-deployment
+  plan:
+  - put: kubernetes-production
+    params:
+      kubectl: create deployment dora --image=sergeymuha/docker
+- name: kubernetes-service
+  plan:
+  - get: kubernetes-production
+    trigger: true
+    passed: [kubernetes-deployment]
+
+  - put: kubernetes-production
+    params:
+      kubectl: create service nodeport dora --tcp=9292:9292
+- name: kubernetes-route
+  plan:
+  - get: kubernetes-production
+    trigger: true
+    passed: [kubernetes-service]
+
+  - put: kubernetes-production
+    params:
+      kubectl: label services dora http-route-sync=dora
