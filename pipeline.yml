@@ -3,7 +3,7 @@ resources:
 - name: input
   type: git
   source:
-    uri: https://github.com/SergeyMuha/concoure-dora-push.git
+    uri: https://github.com/SergeyMuha/concourse-dora-push.git
 #    uri: https://github.com/ihuston/python-cf-examples.git
 
 - name: resource-deploy-web-app
